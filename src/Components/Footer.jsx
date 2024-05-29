@@ -6,7 +6,7 @@ const Footer = () => {
 <div style={{height:'350px', width:'100%'}} className='container-fluid  mt-5  w-100'>
       <div className="d-flex justify-content-between pt-5">
       <div style={{width:'350px'}} className="intro ps-5">
-        <Link to={'/'} style={{textDecoration:'none',color:'black'}} ><h5 className='text-dark'><i class="fa-solid fa-folder-open"></i> PROJECT FAIR</h5></Link >
+        <Link to={'/'} style={{textDecoration:'none',color:'black'}} ><h5 className='text-dark'><i className="fa-solid fa-folder-open"></i> PROJECT FAIR</h5></Link >
         <p style={{color:'black'}}>Designed and built with all the love in the world by the Luminar team with the h elp of our contributers.</p>
         <p style={{color:'black'}}>Code liscenced Luminar, docs CC BY 3.0.</p>
         <p className='text-dark'>Currently v5.3.2</p>

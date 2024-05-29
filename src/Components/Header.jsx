@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Navbar } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const Header = () => {
+const Header = ({insideDashboard}) => {
   return (
     <Navbar style={{zIndex:'10'}} className="position-fixed top-0 w-100 border rounded">
     <Container>
@@ -13,6 +13,12 @@ const Header = () => {
         </Link>
        
       </Navbar.Brand>
+      {
+        insideDashboard &&
+        <div className="ms-auto">
+          <button className="btn btn-link">LOGOUT</button>
+        </div>
+      }
     </Container>
   </Navbar>
   )

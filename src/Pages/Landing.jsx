@@ -11,7 +11,7 @@ const Landing = () => {
         <div className="container">
             <div className="row align-items-center">
                 <div className="col-lg-6">`
-                    <h1 style={{fontSize:'80px'}}> <i className="fa-solid fa-folder-open me-2"></i>
+                    <h1 style={{fontSize:'80px',letterSpacing:'5px'}}> <i className="fa-solid fa-folder-open me-2"></i>
                        PROJECT FAIR
                     </h1>
                     <p style={{textAlign:'justify'}}>
