@@ -16,7 +16,7 @@ const Header = ({insideDashboard}) => {
       {
         insideDashboard &&
         <div className="ms-auto">
-          <button className="btn btn-link">LOGOUT</button>
+          <button style={{textDecoration:'none'}} className="btn btn-link">LOGOUT</button>
         </div>
       }
     </Container>
