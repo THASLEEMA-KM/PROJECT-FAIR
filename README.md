@@ -42,4 +42,164 @@
             insert more than on at a time : db.collectionName.insertMany([{},{},{}...{}])
             we can display total document count : countDocuments()
                 db.collectionName.countDocuments()
-            
+            we can limit the count of documents  by reading all using limit()
+                db.collectionName.find().limit(number to limit)
+            we can sort the documents by reading all documents : sort()
+                db.collectionName.find().sort({key:(for ascending value as 1, for descending value as 0)})
+            we can skip data after sorting : use skip()
+                db.collectionName.find().sort({key:value}).skip(the number to be skip)
+            we can find documents based on a condition using find(). here args are given as the condition 
+                db.collectionName.find({condition as key:value})  
+            to querying while reading documents : use $
+                $gt/$gte/$lt/$lte
+                db.collectionName.find({key:{$gt/$gte/$lt/$lte:value}}) 
+                db.users.find({age:{$gte:23,$lte:26}})
+
+                db.users.find({$and:[{age:{$gt:23,$lt:26}}]})
+
+            to get only mentioned docs while reading use $in
+                db.collectionName.find({key:{$in:["value","value"]}})
+            to check a key is exist or not : $exist()
+                db.collectionName.find({key:{$exists:true}})
+            to compare multiple fields in the same docmnts use :$epxr
+                db.collectionName.find({$expr:{$gt:["$key","$key"]}})
+            to update multiple value use updateMany()
+                db.collectionName().updateMany({key:value},$set:{key:value})
+                db.users.updateMany({age:27},{$set:{age:25}})
+            to update single value
+                db.collectionName.updateOne({key:value},{$inc:{key:value}}), here ade is incremented by a value(3)
+                db.users.updateOne({uname:"Tom"},{$inc:{age:3}})
+            to insert a data to an array
+                db.collectionName.updateOne()
+                db.users.updateOne({uname:"Jerry"},{$push:{hobbies:"Swimming"}})
+            to delete a data frm an array
+                db.users.updateOne({uname:"Jerry"},{$pull:{hobbies:"Swimming"}})
+            to delete a document  deleteOne()
+                db.collectionName.deleteOne({key:"value"})
+                db.users.deleteOne({key:"value"})
+            to delete more than one, use deleteMany()
+                db.collectionName.deleteMany({key:{$exists:true}})
+                db.users.deleteMany({uname:{$exists:true}})
+                
+        - Aggregation : used to join multple collection to get common result
+                - $lookup : similar to left-outer joining in sql ,  adds a new array field to each input document.
+                - Syntax :
+                            {
+                                $lookup:
+                                    {
+                                    from: <collection to join>, 
+                                    localField: <field from the input documents>,
+                                    foreignField: <field from the documents of the "from" collection>,
+                                    as: <output array field>
+                                    }
+                            }
+                    - db.users.aggregate({$lookup:{from:"projects",localField:"email",foreignField:"userid",as:"userprojects"}})
+
+        - MongoDB Atlas : cloud version of MongoDB
+            - 
+        ----------------------------------------------------------------------------------------------------------------------------------
+                                           NODE JS SERVER /BACKEND
+        ----------------------------------------------------------------------------------------------------------------------------------
+        1. its a run time environment , also it have java script libraray for JS
+        2. Features
+            - Extremely fast
+            - Asynchronous
+            - Single Threaded with event loop
+            - Highly Scalable
+            - Open source language
+        3. Node JS has Global objects
+            - it can be access anywhere from node js app without exporting or importing
+            - ex : console.log() , setTimout()
+        4. Node JS Module System : A file is considered as module in  node to accesss data from one file it has to export from there and before using it in another file it has to import
+            - to import module : require('module name/module path') method
+            - to export module : module.exports / exports
+            - Built in modules
+                - File system : hanling fil e related events
+                - http modules : create web server
+                - https modules : create web server
+                - Events : work with Event eMitter
+                - crypto : providing tool like hashing, encryption etc.
+                - process : used to provide currently runnning process in the node js app
+                    - Environmental variable :- used to hold configuration / confidential data regarding the 
+                        project to access environmemtal  variable through out app use 'process.env,variable-name'
+        5. Node JS Packages :
+            - Used to resolve common problems
+            - we have to install package via npm 
+            - it adds package.json , package-lock.json file , node_modules
+        6. Backend Concepts
+            - Client-Server Architecture : 
+            - REST API : http requests and data in json
+            - CRUD : Create (POST). Read(GET),Update(PUT),Delete(DELETE)
+            - CORS : Cross Origin Resource Sharing Protocol is must enabled in server
+        7. BACK-END WORKING
+                Requests are send to an event queue, then the event loop checks whther it is blocking or non blocking
+                then checks the type of the req. 
+                The nonblcking req are send to I/O polling and it doesnt need any external libraries,
+                The blocking type req are send to a single threaded thread pool. it need external libraries,
+                The event loop solves the req one by one. also check whther it needs any externl applction
+                if it is a nonblocking it send back the crrsoondng response immedaltly, not much time delay
+                if it is a blocking the req are send from a thread pool to the external source like DB, FILE SYSTEM, COMPUTATION,
+        8. Node js
+            - Server side environment
+            - written in C/C++ languages
+            - building faster and scalable server side app
+            - genereate db queries
+            - 
+
+
+
+        ----------------------------------------------------------------------------------------
+                    EXPRESS JS - FRAMEWORK OF NODE JS
+        ----------------------------------------------------------------------------------------
+        1. used in Client-Server Architecture as a web server
+            - Create folder for server
+            - inside folder create package.json using npm init -y
+            - we ahve to update  package.json script value as "start" :"node index.js" instead of test
+            - Install packages for creating express web server
+                - express : npm i express : used to create server
+                - cors : npm i cors : used to enable cors
+                - dotenv : npm i dotenv : used to load environmental variable to process
+            - create .env file : to store environmental variable of a project
+            - create .gitignore file : used to avoid files and folders while uploading to git
+                add node_modules,.env 
+            - create index.js file to define express server
+                - import all the packages,(dotenv,express,cors)
+                - create express server
+                - use cors in our express server
+                - use json parser in express server
+                - create port for server
+                - start to listen server app for client
+                - resolve get req to server using express
+                - Run server app using node index.js
+            - Create Routes in express server
+                - create a folder
+                - create router.js file
+                    - import express server
+                    - create an object of router class of express
+                    - router obj is capable of defining route for app
+                    - export router from the file
+                    - import router in index.js
+                    - use router in express server app
+            - Create Controller folder to define loigc to solve client req
+                - Create a folder
+            - Create Models todefine schema and model for mongodb collection using mongoose
+                - create a folder
+                - create a js file to define schema and model
+                    - import mongoose
+                    - create schema object to define  structure of the docmnt
+                    - creaye model
+                    - export model
+            - Create DB connection folder
+                - create js file to define db connection
+                - get connection string
+                - use mongoose to connect db with node js
+                - import index.js db file
+        ------------------------------------------------------------------------------------ 
+                        MONGOOSE- ODM(OBJECT DATA MODEL) FOR NODE JS
+        ------------------------------------------------------------------------------------ 
+        1. install mongoose using : npm i mongoose
+        2. Create SChema : Structure of the dcomnt  that we want to store in a collection
+            - create obj of schema class
+        3. Model : copy of the collection in db
+            - create model call model method
+        
