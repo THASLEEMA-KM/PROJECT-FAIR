@@ -187,7 +187,7 @@
                 - create a js file to define schema and model
                     - import mongoose
                     - create schema object to define  structure of the docmnt
-                    - creaye model
+                    - create model
                     - export model
             - Create DB connection folder
                 - create js file to define db connection
