@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginAPI, registerAPI } from '../services/allAPI';
+import Spinner from 'react-bootstrap/Spinner';
 
 const Auth = ({insideRegister}) => {
 
@@ -13,6 +14,7 @@ const Auth = ({insideRegister}) => {
     email:"",
     password:""
   })
+  const [isLoggedIn,setIsLoggedIn] = useState(false)
   const navigate = useNavigate()
 // console.log(userData);
   const handleRegister = async(e)=>
@@ -48,9 +50,45 @@ const Auth = ({insideRegister}) => {
         }
     }
 
-  const handleLogin = async()=>
+  const handleLogin = async(e)=>
     {
-      
+      console.log("inside login");
+      e.preventDefault()
+      if(userData.email && userData.password)
+        {
+          try {
+            const result = await loginAPI(userData)
+            console.log(result);
+            if(result.status==200)
+              {
+                setIsLoggedIn(true)
+                sessionStorage.setItem("user",JSON.stringify(result.data.user))
+                sessionStorage.setItem("token",result.data.token)
+                setTimeout(() => {
+                  // toast.warning(`Welcome ${result.data.user.username}...`)
+                  setUserData({
+                    username:"",
+                    email:"",
+                    password:""
+              })
+                setIsLoggedIn(false)
+                  navigate('/')
+                }, 2000);
+              }
+              else{
+                if(result.response.status==404)
+                  {
+                    toast.error(result.response.data)
+                  }
+              }
+          } catch (error) {
+            console.log(error);
+          }
+    
+        }
+        else{
+          toast.info("Please fill te form completely")
+        }
     }
 
 
@@ -105,7 +143,10 @@ const Auth = ({insideRegister}) => {
                     </div>
                     :
                     <div className='mt-3 text-center'>
-                      <button className='btn btn-success' onClick={handleLogin}>LOGIN</button>
+                      <button className='btn btn-success' onClick={handleLogin }>LOGIN
+{ isLoggedIn && 
+                     <Spinner animation="border" variant="light" />
+}                      </button>
                       <p className='mt-2 text-black'>New User ? Click here to  <Link to={'/register'}>Register</Link></p>
                     </div>
                   }

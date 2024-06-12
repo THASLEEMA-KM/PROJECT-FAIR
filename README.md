@@ -182,6 +182,9 @@
                     - use router in express server app
             - Create Controller folder to define loigc to solve client req
                 - Create a folder
+                - create a js file to define logic to solve clint req
+                - import model
+                - 
             - Create Models todefine schema and model for mongodb collection using mongoose
                 - create a folder
                 - create a js file to define schema and model
@@ -202,4 +205,15 @@
             - create obj of schema class
         3. Model : copy of the collection in db
             - create model call model method
+        ---------------------------------------------------------------------
+                    JSONWEBTOKEN- for Authentication 
+        --------------------------------------------------------------
+        used to securely transfer data between 2 webs.
+        npm i jsonwebtoken   
+        JWT to sign thr token and send it back to the user on a succeful login
+        Token creation using JWT use sign(payload,password)
+            - payload : it is the data that we want to store inside the token
+            - password : can be any data that has to define in .env file         
+
+
         
