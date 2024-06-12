@@ -144,9 +144,10 @@ const Auth = ({insideRegister}) => {
                     :
                     <div className='mt-3 text-center'>
                       <button className='btn btn-success' onClick={handleLogin }>LOGIN
-{ isLoggedIn && 
-                     <Spinner animation="border" variant="light" />
-}                      </button>
+                      { isLoggedIn && 
+                            <Spinner animation="border" variant="light" />
+                      }   
+                      </button>
                       <p className='mt-2 text-black'>New User ? Click here to  <Link to={'/register'}>Register</Link></p>
                     </div>
                   }
