@@ -158,7 +158,7 @@
             - Install packages for creating express web server
                 - express : npm i express : used to create server
                 - cors : npm i cors : used to enable cors
-                - dotenv : npm i dotenv : used to load environmental variable to process
+                - dotenv : npm i dotenv : used to load .env file content to process  environmental variable
             - create .env file : to store environmental variable of a project
             - create .gitignore file : used to avoid files and folders while uploading to git
                 add node_modules,.env 

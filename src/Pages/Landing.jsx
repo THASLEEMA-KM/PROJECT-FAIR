@@ -19,7 +19,13 @@ const Landing = () => {
                         add and manage their projects. As well asaccess all projects availabe in 
                         our website...What are you waiting for!!!
                     </p>
-                    <Link to={'/login'} className='btn btn-warning mt-3 fs-5'> Start To Explore</Link>
+                        { 
+                            sessionStorage.getItem("token")?
+                                <Link to={'/dashboard'} className='btn btn-warning mt-3 fs-5'> Manage your Projects</Link>
+                                :
+                                <Link to={'/login'} className='btn btn-warning mt-3 fs-5'> Start To Explore</Link>
+
+                        }                
                 </div>
                 <div className="col-lg-6">
                     <img className='img-fluid' src={landingimage} alt="landing" />
