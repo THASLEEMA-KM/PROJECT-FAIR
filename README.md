@@ -217,3 +217,4 @@
 
 
         
+- if we are giving data from the system , that req is not type of application/json, it is a multipart/form-data. for this we create object for that. while sending the req we semd  the reqheader too. also the token is passed with an extra string for more security to the reqheader

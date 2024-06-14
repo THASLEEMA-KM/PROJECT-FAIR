@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import uploadimage from '../assets/upload.png'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const Add = () => {
 
   const [preview,setPreview] = useState(uploadimage)
@@ -18,7 +22,17 @@ const Add = () => {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false)
+  const handleClose = () => {
+    setShow(false);
+    setProjectDetails({
+      title:"",
+      languages:"",
+      github:"",
+      website:"",
+      overview:"",
+      projImage:""
+    })
+  }
   const handleShow = () => setShow(true);
 
   useEffect(()=>{
@@ -29,9 +43,41 @@ const Add = () => {
       }else{
         setImageFileStatus(false)
         setProjectDetails({...projectDetails,projImage:""})
+        setPreview(uploadimage)
       }
   },
   [projectDetails.projImage])
+
+  const handleAddProject = ()=>
+    {
+      const {title,languages,github,website,overview,projImage} = projectDetails
+      if(projectDetails.title && projectDetails.languages && projectDetails.github && projectDetails.website && projectDetails.overview && projectDetails.projImage)
+        { 
+            // reqBody - add items to formData
+            const reqBody = new FormData()
+            reqBody.append("title",title)
+            reqBody.append("languages",languages)
+            reqBody.append("overview",overview)
+            reqBody.append("github",github)
+            reqBody.append("website",website)
+            reqBody.append("projImage",projImage)
+ 
+
+            const token = sessionStorage.getItem("token")
+            if(token){
+              const reqHeader = {
+                "Content-Type" : "multipart/form-data",
+                "Authorization" : `Bearer ${token}`
+              }
+              // api call - reqBody,reqHeader
+              
+            }
+  
+      }else{
+        toast.warning("Please fill the form completely!!!")
+      }
+    }
+  
 
   return (
     <>
@@ -85,9 +131,12 @@ const Add = () => {
           <Button variant="secondary" onClick={handleClose}>
             Cancel
           </Button>
-          <Button variant="primary">Add</Button>
+          <Button onClick={handleAddProject} variant="primary">Add</Button>
         </Modal.Footer>
       </Modal>
+
+      <ToastContainer theme='colored' autoClose={3000}/>
+
     </>
   )
 }
