@@ -197,6 +197,11 @@
                 - get connection string
                 - use mongoose to connect db with node js
                 - import index.js db file
+            - Create Middleware folder
+                - create js file to verify jwt token
+                    - import token file
+                    - create middleware function for defune logic to verify token
+                    - export the mddleware
         ------------------------------------------------------------------------------------ 
                         MONGOOSE- ODM(OBJECT DATA MODEL) FOR NODE JS
         ------------------------------------------------------------------------------------ 
@@ -205,6 +210,7 @@
             - create obj of schema class
         3. Model : copy of the collection in db
             - create model call model method
+            - 
         ---------------------------------------------------------------------
                     JSONWEBTOKEN- for Authentication 
         --------------------------------------------------------------
@@ -213,8 +219,46 @@
         JWT to sign thr token and send it back to the user on a succeful login
         Token creation using JWT use sign(payload,password)
             - payload : it is the data that we want to store inside the token
-            - password : can be any data that has to define in .env file         
+            - password : can be any data that has to define in .env file    
+        Token verification : use verify(token,password)
+
 
 
         
 - if we are giving data from the system , that req is not type of application/json, it is a multipart/form-data. for this we create object for that. while sending the req we semd  the reqheader too. also the token is passed with an extra string for more security to the reqheader
+
+
+
+        ------------------------------------------------------------------------------
+-                    MIDDLE WARE - For connecting applctn effectively
+        ------------------------------------------------------------------------------
+        1. It is a function with 3 args (req,res,next)
+            - req : request object from client
+            - res : resonse object from server
+            - next : is a method which controlthe requset
+        2. can access / control request response cycle 
+        3. 2 types of middle wares
+            - application specific middle ware : will active for all request coming to the server
+                - ex : express.json()
+            - router specific middle ware : will active only in a paritcular router
+
+        
+
+        ------------------------------------------------------------------------------
+-                    MULTER - Middleware used to resolve multipart/FormData
+        ------------------------------------------------------------------------------
+        1. Install Multer in server : npm i multer
+        2. Multer adds a 'body' object and a 'file' or 'files' object to the 'request' object.
+            body object contains the values of the text fields of the form.
+            the file or files object contains the files uploaded via the form.
+        3. It can handle definng the storage of uploading file in a request
+            - create a 'uploads' folder in swrver to hold all uploading file from client
+            - define a middleware to apply multer for storing / managing uploading file usijng multer
+                - create a js file middleware folder
+                - import multer js file 
+            - define storage for uploadong file in multer 
+                using diskStorage({
+                    destination
+                })
+            - export multer
+            - use multer as a router specific middleware

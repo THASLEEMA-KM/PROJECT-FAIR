@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap';
 import uploadimage from '../assets/upload.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addProjectAPI } from '../services/allAPI';
 
 
 const Add = () => {
@@ -48,7 +49,7 @@ const Add = () => {
   },
   [projectDetails.projImage])
 
-  const handleAddProject = ()=>
+  const handleAddProject = async ()=>
     {
       const {title,languages,github,website,overview,projImage} = projectDetails
       if(projectDetails.title && projectDetails.languages && projectDetails.github && projectDetails.website && projectDetails.overview && projectDetails.projImage)
@@ -70,6 +71,20 @@ const Add = () => {
                 "Authorization" : `Bearer ${token}`
               }
               // api call - reqBody,reqHeader
+              try {
+                const result = await addProjectAPI(reqBody,reqHeader)
+                console.log(result);
+                if(result.status==200)
+                  {
+                    handleClose()
+                    toast.success("Project added successfully")
+                  }
+                  else{
+                    toast.warning(result.response.data)
+                  }
+              } catch (error) {
+                console.log(error);
+              }
               
             }
   
