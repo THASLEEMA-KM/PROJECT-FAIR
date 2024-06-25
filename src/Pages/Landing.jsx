@@ -1,10 +1,41 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import landingimage from '../assets/landing1.png'
 import ProjectCard from '../Components/ProjectCard'
 import { Card } from 'react-bootstrap'
+import { homeProjectAPI } from '../services/allAPI'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Landing = () => {
+    const navigate = useNavigate()
+    const [homeProjcets,setHomeProjects] = useState([])
+    // console.log(homeProjcets);
+    useEffect(()=>{
+        getHomeProjects()
+    },[])
+    const getHomeProjects = async ()=>
+        {
+            try {
+               const result = await homeProjectAPI()
+            //    console.log(result);
+               if(result.status==200)
+                {
+                    setHomeProjects(result.data)
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        }
+
+    const handleProjects = () =>
+        {
+            if(sessionStorage.getItem("token")){
+                navigate('/projects')
+            }else{
+                toast.warning("Please login to get full access to our Projects")
+            }
+        }    
   return (
     <>
     <div style={{minHeight:'100vh'}} className="d-flex justify-content-center align-items-center shadow rounded  w-100">
@@ -37,12 +68,18 @@ const Landing = () => {
         <h1 className="mb-5">Explore Our Projects</h1>
         <marquee >
             <div className="d-flex">
-                <div className="me-5">
-                    <ProjectCard/>
-                </div>
+                {
+                    homeProjcets?.length>0 &&
+                    homeProjcets.map(projects=>(
+                        <div key={projects?._id} className="me-5">
+                            <ProjectCard displayData={projects}/>
+                        </div>
+                    ))
+                    
+                }
             </div>
         </marquee>
-        <button className="btn btn-link mt-3">CLICK HERE TO VIEW MORE PROJECTS...</button>
+        <button onClick={handleProjects} className="btn btn-link mt-3">CLICK HERE TO VIEW MORE PROJECTS...</button>
     </div>
     <div className="d-flex align-items-center mt-5 flex-column">
         <h1>Testimonials</h1>
@@ -115,6 +152,8 @@ const Landing = () => {
             </Card>
         </div>
     </div>
+    <ToastContainer theme='colored' autoClose={3000}/>
+
     </>
   )
 }

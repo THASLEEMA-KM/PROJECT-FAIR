@@ -202,6 +202,7 @@
                     - import token file
                     - create middleware function for defune logic to verify token
                     - export the mddleware
+            - express.static() : used to make a file or folder from node server available to other applctn
         ------------------------------------------------------------------------------------ 
                         MONGOOSE- ODM(OBJECT DATA MODEL) FOR NODE JS
         ------------------------------------------------------------------------------------ 
@@ -211,6 +212,7 @@
         3. Model : copy of the collection in db
             - create model call model method
             - 
+        
         ---------------------------------------------------------------------
                     JSONWEBTOKEN- for Authentication 
         --------------------------------------------------------------
@@ -262,3 +264,14 @@
                 })
             - export multer
             - use multer as a router specific middleware
+
+-----------------------------------------------------------------------------------------------------
+-           TypeScript - 
+---------------------------------------------------------------
+1.
+
+-----------------------------------------------------------------------------------------------------
+-           Angular - TypeScript FrameWork (Frontend application)
+---------------------------------------------------------------
+    1.  developed by google for building  dynamic web appplications
+    2.  createefficient and interactive user interface  

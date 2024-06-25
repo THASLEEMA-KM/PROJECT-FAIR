@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Button, Modal } from 'react-bootstrap';
 import uploadimage from '../assets/upload.png'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { addProjectAPI } from '../services/allAPI';
+import { addResponseContext } from '../Contexts/ContextAPI';
 
 
 const Add = () => {
 
+  const {addResponse,setAddResponse} = useContext(addResponseContext)
   const [preview,setPreview] = useState(uploadimage)
-
   const [projectDetails,setProjectDetails] = useState({
     title:"",
     languages:"",
@@ -18,7 +19,7 @@ const Add = () => {
     overview:"",
     projImage:""
   })
-  console.log(projectDetails);
+  // console.log(projectDetails);
   const [imageFileStatus,setImageFileStatus] = useState(false)
 
   const [show, setShow] = useState(false);
@@ -77,7 +78,8 @@ const Add = () => {
                 if(result.status==200)
                   {
                     handleClose()
-                    toast.success("Project added successfully")
+                    setAddResponse(result)
+                    // toast.success("Project added successfully")
                   }
                   else{
                     toast.warning(result.response.data)

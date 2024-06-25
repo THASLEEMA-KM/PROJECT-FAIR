@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import loginimage from '../assets/login.png'
 import { FloatingLabel, Form } from 'react-bootstrap'
 import { Link, useNavigate } from 'react-router-dom'
@@ -6,9 +6,10 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { loginAPI, registerAPI } from '../services/allAPI';
 import Spinner from 'react-bootstrap/Spinner';
+import { tokenAuthContext } from '../Contexts/AuthContext';
 
 const Auth = ({insideRegister}) => {
-
+  const {isAuthorised,setIsAuthorised} = useContext(tokenAuthContext)
   const [userData,setUserData] = useState({
     username:"",
     email:"",
@@ -64,6 +65,7 @@ const Auth = ({insideRegister}) => {
                 setIsLoggedIn(true)
                 sessionStorage.setItem("user",JSON.stringify(result.data.user))
                 sessionStorage.setItem("token",result.data.token)
+                setIsAuthorised(true)
                 setTimeout(() => {
                   // toast.warning(`Welcome ${result.data.user.username}...`)
                   setUserData({
@@ -156,7 +158,7 @@ const Auth = ({insideRegister}) => {
             </div>
           </div>
       </div>
-      <ToastContainer theme='colored' autoClose={3000}/>
+      <ToastContainer theme='colored' autoClose={3000} position='top-center'/>
 
     </div>
     
